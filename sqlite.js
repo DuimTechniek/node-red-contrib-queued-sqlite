@@ -61,7 +61,7 @@ module.exports = function(RED) {
             }
             else
             {
-                node.log("Doing query " + q.query);
+                //node.log("Doing query " + q.query);
                 self.db.all(q.query, q.params, function(err, row) {
                     if (err) { 
                         q.callback(err)
@@ -164,10 +164,6 @@ module.exports = function(RED) {
 
 
             var processQuery = function(msg, db) {
-                if (db === undefined) 
-                {
-                    node.log("db is undefined")
-                }
                 if (node.sqlquery == "msg.topic"){
                     if (typeof msg.topic === 'string') {
                         if (msg.topic.length > 0) {
