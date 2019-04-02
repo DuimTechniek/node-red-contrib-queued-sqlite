@@ -1,0 +1,36 @@
+{
+    "name": "node-red-contrib-queued-sqlite",
+    "version": "0.0.1",
+    "description": "A queued sqlite node for Node-RED",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/DuimTechniek/node-red-contrib-queued-sqlite.git"
+    },
+    "keywords": [
+        "sqlite",
+        "node-red",
+        "queue",
+        "dynamic"
+    ],
+    "author": {
+        "email": "michielklaassen@duimtechniek.nl",
+        "name": "Michiel Klaassen",
+        "url": "http://duimtechniek.nl"
+    },
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/DuimTechniek/node-red-contrib-queued-sqlite/issues"
+    },
+    "homepage": "https://github.com/DuimTechniek/node-red-contrib-queued-sqlite#readme",
+    "dependencies": {
+        "sqlite3": "^4.0.4"
+    },
+    "node-red": {
+        "nodes": {
+            "queued-sqlite": "sqlite.js"
+        }
+    }
+}
