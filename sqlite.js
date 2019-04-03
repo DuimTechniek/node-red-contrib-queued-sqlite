@@ -50,10 +50,10 @@ module.exports = function(RED) {
             {
                 self.db.exec(q.query, function(err) {
                     if (err) { 
-                        q.callback(err);
+                        q.callback(err, null, self.queue.length);
                     }
                     else {
-                        q.callback(null);
+                        q.callback(null, null, self.queue.length);
                     }
                     q = self.queue.shift();
                     self.process(q);
@@ -64,10 +64,10 @@ module.exports = function(RED) {
                 //node.log("Doing query " + q.query);
                 self.db.all(q.query, q.params, function(err, row) {
                     if (err) { 
-                        q.callback(err)
+                        q.callback(err, null, self.queue.length)
                     }
                     else {
-                        q.callback(null, row)
+                        q.callback(null, row, self.queue.length)
                     }
                     q = self.queue.shift();
                     self.process(q);
@@ -147,6 +147,7 @@ module.exports = function(RED) {
         this.mydbConfig = RED.nodes.getNode(this.mydb);
         var node = this;
         node.status({});
+        node.showStatus = false;
 
         this.database = null;
 
@@ -158,6 +159,7 @@ module.exports = function(RED) {
                 node.mydbConfig.get(node.db, function(err, db) {
                     node.log("opened database in advance");
                     node.database = db;
+                    node.showStatus = true;
                 });
             }
             var bind = [];
@@ -169,7 +171,10 @@ module.exports = function(RED) {
                         if (msg.topic.length > 0) {
                             bind = Array.isArray(msg.payload) ? msg.payload : [];
 
-                            db.doQuery(msg.topic, bind, function(err, row) {
+                            db.doQuery(msg.topic, bind, function(err, row, queueSize) {
+                                if (node.showStatus) {
+                                    node.status({fill:queueSize == 0 ? "green" : "yellow" ,shape:"dot",text:"In queue: (" + queueSize +")"});
+                                }
                                 if (err) { node.error(err,msg); }
                                 else {
                                     msg.payload = row;

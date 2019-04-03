@@ -1,6 +1,6 @@
 {
     "name": "node-red-contrib-queued-sqlite",
-    "version": "0.0.1",
+    "version": "0.0.3",
     "description": "A queued sqlite node for Node-RED",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
