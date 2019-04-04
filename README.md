@@ -1,4 +1,4 @@
-node-red-node-sqlite
+node-red-contrib-queued-sqlite
 ====================
 
 A Node-Red node to read and write a local sqlite database.
